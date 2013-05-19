@@ -1,35 +1,21 @@
 package org.qin.recdemo;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MainSearchClass {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		if( !"-f".equalsIgnoreCase(args[0])) {
 			printUsage();
 		}
 		
-		int i = 1;
-		for(; i < args.length && !args[i].equalsIgnoreCase("-u"); i++) {
-			FIOUtils.readFile(args[i]);
-		}
-		
-		if(i >= args.length - 1) {
-			printUsage();
-			return;
-		}
-		
-		for(;i <args.length; i++) {
-			User user = UserTable.getUser(args[i]);
-			List<UserRecord> topKInterestRecords = user.getTopKInterestRecords(5);
-			for(UserRecord record : topKInterestRecords) {
-				record.print();
-			}
-		}
+		FIOUtils.initAll(args[1]);
 		
 	}
 	
